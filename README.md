@@ -1,17 +1,207 @@
-# HARVEY #
-High-Performance Computer Vision InterfaceA Multi-Threaded Gesture Control Engine for Low-Latency OS Automation🏗 System ArchitectureThe JARVIS Vision Module is engineered as a decoupled, event-driven system. It leverages a producer-consumer model to separate high-frequency image processing from OS-level automation, ensuring that UI interaction does not bottleneck the vision pipeline.Core Pipeline:Vision Core: Threaded $60$ FPS frame acquisition with RGB normalization.Inference Layer: MediaPipe-based landmark extraction ($21$ coordinates).Heuristic Engine: Geometric vector analysis for gesture classification.Intent Processor: Contextual mapping based on the front-most application.Automation Layer: Platform-specific API calls for media and window management.🛠 Technical SpecificationsLanguage: Python 3.10+Concurrency: threading and multiprocessing for asynchronous I/O and inference.Mathematics: Euclidean distance and angular calculations for gesture stability.Communication: websockets (JSON-RPC 2.0) for external assistant integration.Optimization: Exponential Moving Average (EMA) filters to eliminate landmark jitter.📈 Performance BenchmarksEnd-to-End Latency: $< 80\text{ms}$ (Gesture detection to Action execution).Stability: $98\%$ Gesture Recognition accuracy in varied lighting.Throughput: Sustained $60$ FPS on $4$-core processors.Resource Footprint: $< 450\text{MB}$ RAM / $< 15\%$ CPU overhead.📂 Engineering Directory StructurePlaintextjarvis_vision/
-├── vision_core/          # Frame capture, preprocessing, & landmark extraction
-├── gesture_engine/       # Spatial geometry logic & smoothing filters
-├── intent_processor/     # State machine for application-aware commands
-├── automation_layer/     # Cross-platform OS key/mouse injection (Win/Mac/Linux)
-├── jarvis_bridge/        # Async WebSocket server for external JARVIS logic
-├── infrastructure/       # Thread safety, logging, & performance monitoring
-└── config/               # Schema-validated JSON configuration profiles
-🚀 Deployment & Usage1. Environment SetupBash# Clone the repository
-git clone https://github.com/user/jarvis-vision-module.git
-cd jarvis_vision
+# HARVEY Vision Module
 
-# Install production dependencies
-pip install opencv-python mediapipe numpy pynput pyautogui websockets
-2. ExecutionRun the orchestrator to initialize the multi-threaded pipeline:Bashpython main.py --config default_profile.json --debug
-3. Integrated GesturesInput GeometrySystem IntentContext: BrowserContext: MediaIndex-Thumb PinchPrecision AnalogScroll / ZoomVolume SliderFour-Finger SwipeNavigationTab SwitchTrack SeekClosed FistKill SignalClose TabMuteOpen PalmToggle StateReloadPlay/Pause🛡 Design Philosophy: "Reliability First"Debouncing Logic: Prevents accidental double-triggers by implementing a $300\text{ms}$ cooldown between discrete actions.Graceful Degradation: The system automatically drops to $480\text{p}$ resolution if the CPU thermal throttles to maintain interaction speed.Security: OS-level injection requires explicit user permissions; the WebSocket bridge utilizes a local-only loopback for safety.
+## Real‑Time AI Gesture Interaction System
+
+> A production‑grade computer vision framework enabling touchless OS control, AI assistant integration, and next‑generation human‑computer interaction.
+
+---
+
+## Why This Project Matters
+
+Human‑computer interaction is shifting toward multimodal, natural interfaces. The JARVIS Vision Module explores this transition through a real‑time gesture intelligence system designed for both AI research and product prototyping. It demonstrates how computer vision can move from experimental demos to usable interaction infrastructure.
+
+This repository is built to showcase applied AI engineering, system architecture maturity, and real‑world deployability.
+
+---
+
+## Highlights
+
+* Real‑time hand tracking and gesture recognition
+* Context‑aware intent inference
+* OS automation via gesture input
+* Event‑driven AI assistant integration
+* Modular, production‑style architecture
+* Performance‑focused implementation
+
+---
+
+## Core Capabilities
+
+### Vision Intelligence
+
+* Real‑time hand landmark detection
+* Robust preprocessing pipeline
+* Temporal smoothing for stability
+* Low‑latency inference optimization
+
+### Gesture Understanding
+
+* Geometric feature engineering
+* Confidence scoring mechanisms
+* Gesture classification pipeline
+* False positive mitigation logic
+
+### Context Awareness
+
+* Active application detection
+* Context‑sensitive gesture mapping
+* Priority arbitration for conflicting commands
+
+### Automation Layer
+
+* Media playback control
+* Volume management via gesture
+* Window and tab navigation
+* Scroll and input simulation
+
+### AI Assistant Integration
+
+* Event streaming architecture
+* Command routing interface
+* API integration capability
+
+---
+
+## Architecture Overview
+
+The system follows a layered AI architecture separating perception, reasoning, and execution.
+
+```
+Camera Input
+      │
+      ▼
+Vision Perception Layer
+(Hand Tracking & Preprocessing)
+      │
+      ▼
+Gesture Intelligence Layer
+(Feature Engineering + Classification)
+      │
+      ▼
+Intent Processing Layer
+(Context Awareness & Decision Logic)
+      │
+ ┌────┴─────┐
+ ▼          ▼
+Automation   AI Assistant Bridge
+(OS Control) (Events / Commands / APIs)
+```
+
+This design ensures scalability, maintainability, and integration flexibility.
+
+---
+
+## Repository Structure
+
+```
+jarvis_vision/
+│
+├── vision_core/
+├── gesture_engine/
+├── intent_processor/
+├── automation_layer/
+├── jarvis_bridge/
+├── infrastructure/
+├── config/
+└── utils/
+```
+
+The modular layout allows independent development, testing, and future ML integration.
+
+---
+
+## Technical Depth
+
+This project emphasizes engineering rigor over surface‑level demos:
+
+* Real‑time pipeline optimization
+* Feature engineering from spatial landmarks
+* Contextual decision systems
+* Event‑driven integration architecture
+* Automation abstraction design
+
+The approach balances computational efficiency, interpretability, and deployability.
+
+---
+
+## Performance Targets
+
+| Metric           | Target  |
+| ---------------- | ------- |
+| Frame Rate       | 60+ FPS |
+| Latency          | <100 ms |
+| Gesture Accuracy | >95%    |
+| False Positives  | <3%     |
+| Memory Usage     | <500 MB |
+
+---
+
+## Installation
+
+```
+git clone <repository-url>
+cd jarvis_vision
+pip install -r requirements.txt
+```
+
+A virtual environment is recommended.
+
+---
+
+## Running the System
+
+```
+python main.py
+```
+
+You should observe live camera initialization, gesture detection feedback, and optional automation triggers.
+
+---
+
+## Potential Applications
+
+* AI assistant interaction layers
+* Smart workspace automation
+* Accessibility technologies
+* Touchless productivity environments
+* HCI research prototypes
+
+---
+
+## Future Directions
+
+* ML‑based gesture classifiers
+* Voice + gesture multimodal interaction
+* Adaptive user personalization
+* Multi‑camera spatial tracking
+* Predictive interaction modeling
+
+---
+
+## Professional Value
+
+This project demonstrates:
+
+* Applied computer vision engineering
+* Real‑time AI system design
+* Automation architecture development
+* Human‑computer interaction innovation
+* AI ecosystem integration readiness
+
+It is designed as a portfolio‑grade AI engineering project.
+
+---
+
+## License
+
+Specify the intended open‑source license (MIT / Apache 2.0 recommended).
+
+---
+
+## Contributions
+
+Issues, discussions, and pull requests are welcome. Collaboration is encouraged.
+
+---
+
+End of Document
