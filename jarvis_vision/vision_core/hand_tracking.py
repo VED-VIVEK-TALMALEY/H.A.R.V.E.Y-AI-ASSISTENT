@@ -53,8 +53,10 @@ class HandTracker:
         if not CVZONE_AVAILABLE:
             raise ImportError("cvzone not installed. Run: pip install cvzone")
         
+        # Improved settings for better accuracy
         self.detector = HandDetector(
-            detectionCon=min_detection_confidence,
+            detectionCon=0.8,  # Higher confidence for better accuracy
+            minTrackCon=0.5,
             maxHands=max_hands
         )
         self.total_detections = 0
@@ -80,19 +82,19 @@ class HandTracker:
             
             for hand in hands:
                 # Extract landmarks
-                lm_list = hand['lmList']  # List of 21 landmarks [x, y, z]
-                hand_type = hand['type']  # "Left" or "Right"
+                lm_list = hand['lmList']
+                hand_type = hand['type']
                 
-                landmarks = np.array([[lm[0]/frame_bgr.shape[1], 
-                                      lm[1]/frame_bgr.shape[0], 
-                                      lm[2]/frame_bgr.shape[1]] for lm in lm_list])
+                # Normalize landmarks
+                height, width = frame_bgr.shape[:2]
+                landmarks = np.array([[lm[0]/width, lm[1]/height, lm[2]/width] for lm in lm_list])
                 landmarks_pixel = np.array([[lm[0], lm[1]] for lm in lm_list])
                 
                 hand_data = HandData(
                     landmarks=landmarks,
                     landmarks_pixel=landmarks_pixel,
                     handedness=hand_type,
-                    confidence=0.9  # cvzone doesn't provide confidence
+                    confidence=0.9
                 )
                 hands_data.append(hand_data)
         
